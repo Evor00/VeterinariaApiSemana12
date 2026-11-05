@@ -1,0 +1,115 @@
+@host = https://localhost:5001
+
+### 200 - lista de mascotas
+GET {{host}}/api/mascotas?especie=Perro
+Accept: application/json
+
+### 200 - ruta anidada
+GET {{host}}/api/mascotas/1/citas
+Accept: application/json
+
+### 200 - lista de citas con filtro
+GET {{host}}/api/citas?desde=2026-11-01
+Accept: application/json
+
+### 201 - crear mascota
+POST {{host}}/api/mascotas
+Content-Type: application/json
+
+{
+  "nombre": "Toby",
+  "especie": "Perro",
+  "edad": 3,
+  "codigoChip": "CHIP-9001"
+}
+
+### 400 - anotación de datos inválida
+POST {{host}}/api/mascotas
+Content-Type: application/json
+
+{
+  "nombre": "",
+  "especie": "Perro",
+  "edad": 55,
+  "codigoChip": ""
+}
+
+### 404 - recurso inexistente
+GET {{host}}/api/citas/99999
+
+### 409 - chip duplicado
+POST {{host}}/api/mascotas
+Content-Type: application/json
+
+{
+  "nombre": "Duplicado",
+  "especie": "Perro",
+  "edad": 2,
+  "codigoChip": "CHIP-1001"
+}
+
+### 204 - actualizar una mascota existente
+PUT {{host}}/api/mascotas/3
+Content-Type: application/json
+
+{
+  "mascotaId": 3,
+  "nombre": "Kiwi",
+  "especie": "Conejo",
+  "edad": 2,
+  "codigoChip": "CHIP-1003"
+}
+
+### 201 - crear cita (ajusta mascotaId si el ID es diferente en la nube)
+POST {{host}}/api/citas
+Content-Type: application/json
+
+{
+  "fechaHora": "2026-12-01T10:00:00",
+  "motivo": "Desparasitación",
+  "veterinario": "Dra. Ramos",
+  "mascotaId": 3
+}
+
+### 400 - clave foránea inexistente
+POST {{host}}/api/citas
+Content-Type: application/json
+
+{
+  "fechaHora": "2026-12-01T11:00:00",
+  "motivo": "Consulta",
+  "veterinario": "Dra. Ramos",
+  "mascotaId": 99999
+}
+
+### 409 - horario repetido para la mascota 1
+POST {{host}}/api/citas
+Content-Type: application/json
+
+{
+  "fechaHora": "2026-11-10T09:00:00",
+  "motivo": "Vacunación anual",
+  "veterinario": "Dra. Ramos",
+  "mascotaId": 1
+}
+
+### 204 - actualizar una cita existente
+PUT {{host}}/api/citas/2
+Content-Type: application/json
+
+{
+  "citaId": 2,
+  "fechaHora": "2026-11-11T17:00:00",
+  "motivo": "Control general",
+  "veterinario": "Dr. Paredes",
+  "mascotaId": 2
+}
+
+### 204 - eliminar una cita creada previamente
+DELETE {{host}}/api/citas/3
+
+### 409 - no eliminar mascota con citas
+DELETE {{host}}/api/mascotas/1
+
+### 204 - eliminar mascota sin citas (después de crearla)
+DELETE {{host}}/api/mascotas/4
