@@ -13,6 +13,7 @@ public partial class VeterinariaContext(DbContextOptions<VeterinariaContext> opt
         modelBuilder.Entity<Cita>(entity =>
         {
             entity.ToTable("Cita");
+            entity.Property(e => e.FechaHora).HasColumnType("timestamp without time zone");
             entity.HasIndex(e => new { e.MascotaId, e.FechaHora }).IsUnique();
             entity.HasOne(d => d.Mascota).WithMany(p => p.Citas).HasForeignKey(d => d.MascotaId).OnDelete(DeleteBehavior.Restrict);
         });
