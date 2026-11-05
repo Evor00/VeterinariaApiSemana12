@@ -40,11 +40,11 @@ El archivo [VeterinariaApi.http](VeterinariaApi.http) contiene solicitudes lista
 
 ## Despliegue y seguridad
 
-Proveedor de API: **pendiente de configurar con una cuenta del estudiante**. Base de datos: **SQL Server administrado**, compatible con `Microsoft.EntityFrameworkCore.SqlServer`. La conexión se debe guardar exclusivamente en la variable de entorno `ConnectionStrings__Veterinaria`; no se incluye en este repositorio.
+Proveedor de API: **Render Web Service (Free)**. Base de datos: **Render PostgreSQL (Free)**, compatible con `Npgsql.EntityFrameworkCore.PostgreSQL`. Esta alternativa permite mantener ambos servicios en la nube sin costo para una demostración académica. Render admite .NET mediante Docker. La conexión se debe guardar exclusivamente en la variable de entorno `ConnectionStrings__Veterinaria`; no se incluye en este repositorio.
 
 - Repositorio: pendiente de creación.
 - Swagger publicado: pendiente de despliegue; usar `https://<host>/swagger`.
 
 ## Conclusiones
 
-La API demuestra una arquitectura REST basada en controladores, EF Core y LINQ asíncrono. Las validaciones protegen la calidad de datos y las reglas de negocio devuelven códigos HTTP consistentes. El despliegue debe incluir tanto la aplicación como SQL Server en la nube y validar todos los endpoints contra la URL publicada antes de entregar capturas.
+La API demuestra una arquitectura REST basada en controladores, EF Core y LINQ asíncrono. Las validaciones protegen la calidad de datos y las reglas de negocio devuelven códigos HTTP consistentes. Se adaptó el proveedor de EF Core a PostgreSQL, porque la alternativa gratuita seleccionada no es SQL Server, conservando el mismo modelo relacional. El despliegue debe validar todos los endpoints contra la URL publicada antes de entregar capturas.

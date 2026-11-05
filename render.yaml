@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: veterinaria-api-semana12
+    runtime: docker
+    plan: free
+    healthCheckPath: /swagger/index.html
+    envVars:
+      - key: ConnectionStrings__Veterinaria
+        fromDatabase:
+          name: veterinaria-db-semana12
+          property: connectionString
+
+databases:
+  - name: veterinaria-db-semana12
+    plan: free
+    databaseName: veterinariadb
+    user: veterinariauser
